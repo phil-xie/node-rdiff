@@ -222,11 +222,7 @@ rs_result signature(const char *in, const char *out) {
     basis_file = rs_file_open(in, "rb");
     sig_file = rs_file_open(out, "wb");
 
-#ifdef RS_DEFAULT_STRONG_LEN
-    result = rs_sig_file(basis_file, sig_file, block_len, strong_len, &stats);
-#else
-    result = rs_sig_file(basis_file, sig_file, block_len, (size_t) 8, RS_MD4_SIG_MAGIC, &stats);
-#endif
+    result = rs_sig_file(basis_file, sig_file, 2048, 32, RS_BLAKE2_SIG_MAGIC, &stats);
 
     rs_file_close(sig_file);
     rs_file_close(basis_file);
